@@ -1,0 +1,40 @@
+#!/bin/bash
+
+upvm() { 
+	"$VBOXMANAGE" startvm "$VBOXNAME" --type headless &>/dev/null
+}
+
+error() {
+	echo "[ERR] $(basename $0): $*" >&2
+	exit 1
+}
+
+VBOXMANAGE='/mnt/c/Program Files/Oracle/VirtualBox/VBoxManage.exe'
+VBOXFILE=~/.box_list
+VBOXNAME="$1"
+
+if [ $# = 0 ]; then error "usage: box <vm_name> [<commands> ...]"; fi
+if [ ! -f "$VBOXFILE" ]; then error "'$VBOXFILE' not found"; fi
+
+source "$VBOXFILE"
+
+VBOXNAME_PRE="$(echo ${VBOXNAME^^} | tr ' ' '_')"
+VBOXUSER=$(eval echo "\$${VBOXNAME_PRE}_USER")
+VBOXHOST=$(eval echo "\$${VBOXNAME_PRE}_HOST")
+VBOXPORT=$(eval echo "\$${VBOXNAME_PRE}_PORT")
+
+if [ "$VBOXUSER" = "" ]; then error "'${VBOXNAME_PRE}_USER' not found in '$VBOXFILE'"; fi
+if [ "$VBOXHOST" = "" ]; then error "'${VBOXNAME_PRE}_HOST' not found in '$VBOXFILE'"; fi
+if [ "$VBOXPORT" = "" ]; then VBOXPORT=22; fi  
+
+PROC="$("$VBOXMANAGE" list runningvms)"
+
+if [ "$PROC" = "" ]; then
+     upvm
+else
+     echo $PROC | grep -q "\"$VBOXNAME\"" || upvm
+fi
+
+shift 1
+ssh ${VBOXUSER}@${VBOXHOST} -p ${VBOXPORT} $@
+

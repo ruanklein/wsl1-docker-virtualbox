@@ -1,0 +1,3 @@
+# Put on your ~/.zshrc or ~/.bashrc
+alias docker='box LinuxBox docker'
+alias laradock='box LinuxBox "cd ~/laradock && COMPOSE_INTERACTIVE_NO_CLI=1 docker-compose"'
