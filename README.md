@@ -94,7 +94,7 @@ Port 22 is the host port configured on the NAT. Change here if you put another p
 
 If it works, you can log out of the ssh session. 
 
-To finish, enable SSH autostart service on virtual linux machine:
+To finish, enable SSH autostart service on linux vm:
 ```
 systemctl enable ssh
 ```
