@@ -120,6 +120,8 @@ Folder_Name	Mount_point	vboxsf	rw,uid=1000,gid=1000	0	0
 
 Where **Folder_Name** and **Mount_point** are your configurations in shared folders.
 
+Don't forget to add your user of linux vm to **vboxsf** group.
+
 ### Box
 
 Put box script on WSL bin path (example: /usr/local/bin) and change the script execution permission to 755:
