@@ -18,7 +18,8 @@ Basically:
     - Booting in [**multi-user**](#multi-user) mode (X11 is not required);
     - SSH server with [**public key authentication**](#public-key-authentication);
     - [**GRUB**](#grub) configured with GRUB_TIMEOUT to 0 seconds (immediately boot);
-    - [**fstab**](#fstab) configured with uid=1000 and gid=1000 (do not use automount option from shared folder).
+    - [**fstab**](#fstab) configured with uid=1000 and gid=1000 (do not use automount option from shared folder);
+    - [**Docker**](#docker) installed and correctly configured.
 
  ### [Shared Folder](#shared-folder)
 
@@ -121,6 +122,13 @@ Folder_Name	Mount_point	vboxsf	rw,uid=1000,gid=1000	0	0
 Where **Folder_Name** and **Mount_point** are your configurations in shared folders.
 
 Don't forget to add your user of linux vm to **vboxsf** group.
+
+### [DOCKER](#docker)
+
+After install docker on linux vm, add your user to docker group:
+```
+gpasswd -a user_of_linux_vm docker
+```
 
 ### Box
 
