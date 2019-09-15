@@ -46,8 +46,9 @@ On VirtualBox:
                 - Add a new port forwarding rule 
 
 Setup a SSH forward port connection:
+
 | Name | Protocol | Host IP   | Host Port | Guest IP  | Guest Port |
-| ---- | -------- | -------   | --------- | --------  | ---------- |
+| ---  | ---      | ---       | ---       | ---       | ---        |
 |  SSH |   TCP    | 127.0.0.1 |  22       | 10.0.2.15 | 22         |
 
 If port 22 is in use on host, setup another port like 2201, 2202, etc.
@@ -118,3 +119,25 @@ Folder_Name	Mount_point	vboxsf	rw,uid=1000,gid=1000	0	0
 ```
 
 Where **Folder_Name** and **Mount_point** are your configurations in shared folders.
+
+### Box
+
+Put box script on WSL bin path (example: /usr/local/bin) and change the script execution permission to 755:
+```
+sudo chmod 755 /usr/local/bin/box
+```
+
+Create a **~/.box_list** file and configure with your linux vm data. For example:
+```
+# vm to use with docker
+LINUXBOX_USER=dev
+LINUXBOX_HOST=127.0.0.1   
+LINUXBOX_PORT=2200
+```
+
+**LINUXBOX** is your vm name. 
+
+Save and exit. To use:
+```
+box LinuxBox docker run hello-world
+```
