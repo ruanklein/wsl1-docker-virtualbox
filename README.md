@@ -188,10 +188,12 @@ Configuration file with some settings.
 
 This file accept options with suffix;
 
-- `_USER` : user of linux vm (**REQUIRED**)
-- `_HOST` : host (**REQUIRED**)
-- `_PORT` : port (OPTIONAL | DEFAULT: 22)
-- `_X11`  : enable X11 apps (OPTIONAL | DEFAULT: false)
+| Variable | Description        | Required | Default value |
+| ---      | ---                | ---      | ---           |
+| `_USER`  | linux vm user      | Yes      |               |
+| `_HOST`  | host/ip vm         | Yes      |               |
+| `_PORT`  | ssh vm port        | No       | 22            |
+| `_X11`   | enable X11 from ssh| No       | false         | 
 
 For example, assuming two linux vms: **Debian** and **Kali**.
 
