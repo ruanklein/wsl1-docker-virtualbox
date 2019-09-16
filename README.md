@@ -151,3 +151,27 @@ Save and exit. To use:
 ```
 box LinuxBox docker run hello-world
 ```
+
+### box_list
+
+Configuration file with some settings.
+
+This file accept options with suffix;
+
+- `_USER` : user of linux vm (**REQUIRED**)
+- `_HOST` : host (**REQUIRED**)
+- `_PORT` : port (OPTIONAL | DEFAULT: 22)
+- `_X11`  : enable X11 apps (OPTIONAL | DEFAULT: false)
+
+For example, assuming two linux vm with names like **Debian** and **Kali**.
+
+```
+# ~/.box_list
+DEBIAN_USER=dev
+DEBIAN_HOST=127.0.0.1
+DEBIAN_PORT=2200
+DEBIAN_X11=true
+
+KALI_USER=root
+KALI_HOST=192.168.25.111
+```
