@@ -163,7 +163,7 @@ This file accept options with suffix;
 - `_PORT` : port (OPTIONAL | DEFAULT: 22)
 - `_X11`  : enable X11 apps (OPTIONAL | DEFAULT: false)
 
-For example, assuming two linux vm with names like **Debian** and **Kali**.
+For example, assuming two linux vms: **Debian** and **Kali**.
 
 ```
 # ~/.box_list
