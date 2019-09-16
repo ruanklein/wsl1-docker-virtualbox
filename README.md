@@ -12,7 +12,8 @@ The advantage of this is to use the docker in a native linux file system and the
 Basically:
 
 1. Windows Subsystem for Linux 1 installed and correctly configured;
-2. Any linux distro installed on VirtualBox with following details:
+2. Permission to create [symlink](#symlink) as non-admin user;
+3. Any linux distro installed on VirtualBox with following details:
     - Create a [**shared folder**](#shared-folder) between your project folder from host to /mnt/dev (or another dir) in guest;
     - [**NAT**](#nat) configured with SSH port forwarding and other services you will use (nginx, mysql, etc);
     - Booting in [**multi-user**](#multi-user) mode (X11 is not required);
@@ -20,6 +21,25 @@ Basically:
     - [**GRUB**](#grub) configured with GRUB_TIMEOUT to 0 seconds (immediately boot);
     - [**fstab**](#fstab) configured with uid=1000 and gid=1000 (do not use automount option from shared folder);
     - [**Docker**](#docker) installed and correctly configured.
+
+ ### [Symlink](#symlink)
+
+ Press `Windows` + `R` and type: `secpol.msc`
+
+ In "**Local Security Policy**" navigate to:
+ - Security Settings
+    - Local Policies
+        - User Rights Assignment
+            - Create symbolic links
+
+ In "**Properties of Creating Symbolic Links**":
+ - Local Security Configuration
+    - Add user or group...
+
+ Enter your Windows Username on "**Enter the object names to select**" textbox,
+ and click in Ok button.
+
+ Close all windows and log out. 
 
  ### [Shared Folder](#shared-folder)
 
@@ -35,6 +55,16 @@ Basically:
 - **Folder Name**: Projects
 - **Read-only** and **Auto-mount**: uncheck all
 - **Mount point**: /mnt/projects
+
+Open WSL terminal and navigate to `/mnt/c/Program\ Files/Oracle/VirtualBox`.
+
+Execute:
+
+```
+./VBoxManage.exe setextradata VM_NAME VBoxInternal2/SharedFoldersEnableSymlinksCreate/FOLDER_NAME
+```
+
+Where **VM_NAME** is your linux vm name and **FOLDER_NAME** is your folder name configured in shared folders.
 
 ### [NAT](#nat)
 
