@@ -22,10 +22,12 @@ VBOXNAME_PRE="$(echo ${VBOXNAME^^} | tr ' ' '_')"
 VBOXUSER=$(eval echo "\$${VBOXNAME_PRE}_USER")
 VBOXHOST=$(eval echo "\$${VBOXNAME_PRE}_HOST")
 VBOXPORT=$(eval echo "\$${VBOXNAME_PRE}_PORT")
+VBOX11=$(eval echo "\$${VBOXNAME_PRE}_X11")
 
 if [ "$VBOXUSER" = "" ]; then error "'${VBOXNAME_PRE}_USER' not found in '$VBOXFILE'"; fi
 if [ "$VBOXHOST" = "" ]; then error "'${VBOXNAME_PRE}_HOST' not found in '$VBOXFILE'"; fi
-if [ "$VBOXPORT" = "" ]; then VBOXPORT=22; fi  
+if [ "$VBOXPORT" = "" ]; then VBOXPORT=22; fi
+if [ "$VBOX11" = "" ]; then VBOX11=false; fi
 
 PROC="$("$VBOXMANAGE" list runningvms)"
 
@@ -36,5 +38,5 @@ else
 fi
 
 shift 1
-ssh ${VBOXUSER}@${VBOXHOST} -p ${VBOXPORT} $@
+ssh $($VBOX11 && echo '-X') ${VBOXUSER}@${VBOXHOST} -p ${VBOXPORT} $@
 
